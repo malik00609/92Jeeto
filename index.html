@@ -1,149 +1,114 @@
-<!DOCTYPE html><html lang="ur" dir="rtl">
+<!DOCTYPE html><html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Gems Fantasy - Wingo Dashboard</title>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jeeto Wingo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
-      font-family: 'Noto Nastaliq Urdu', serif;
-      background: linear-gradient(to bottom, #0f2027, #203a43, #2c5364);
+      font-family: 'Poppins', sans-serif;
+      background: #0f2027;
+      background: linear-gradient(to right, #2c5364, #203a43, #0f2027);
       color: #fff;
+      text-align: center;
+      padding: 20px;
     }
     header {
-      background-color: #121212;
-      padding: 1rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    header h1 {
-      margin: 0;
-      font-size: 1.5rem;
-    }
-    nav a {
+      background: #000;
+      padding: 15px 0;
+      font-size: 20px;
       color: #fff;
-      margin: 0 1rem;
+    }
+    .nav {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      font-weight: 600;
+    }
+    .nav a {
+      color: #fff;
       text-decoration: none;
-      font-weight: bold;
     }
-    .container {
-      max-width: 700px;
-      margin: auto;
-      background: #ffffff10;
-      padding: 2rem;
-      margin-top: 2rem;
-      border-radius: 12px;
-      box-shadow: 0 0 10px #00000050;
-      text-align: center;
+    .title {
+      font-size: 24px;
+      margin: 30px 0 10px;
     }
-    .container h2 {
-      margin-bottom: 1rem;
-      color: #00ffcc;
-    }
-    .buttons button {
-      margin: 0.5rem;
-      padding: 0.75rem 1.5rem;
-      font-size: 1rem;
-      border: none;
-      border-radius: 8px;
-      background-color: #1e90ff;
+    .btn-group button {
+      background-color: #007bff;
       color: white;
+      border: none;
+      padding: 12px 20px;
+      margin: 10px;
+      font-size: 16px;
+      border-radius: 8px;
       cursor: pointer;
       transition: background 0.3s;
     }
-    .buttons button:hover {
-      background-color: #007acc;
+    .btn-group button:hover {
+      background-color: #0056b3;
     }
-    .result-section {
-      margin-top: 2rem;
-    }
-    .result-section input {
-      padding: 0.6rem;
-      font-size: 1rem;
+    input[type="text"] {
+      padding: 10px;
+      font-size: 16px;
+      margin-top: 15px;
       border-radius: 6px;
       border: none;
-      width: 150px;
+      width: 120px;
       text-align: center;
     }
-    .alert {
-      background-color: #ffcc00;
-      color: black;
-      padding: 1rem;
-      border-radius: 6px;
-      margin-top: 1.5rem;
-      font-size: 1rem;
+    .result-box {
+      margin-top: 20px;
     }
-    .social {
-      margin-top: 2rem;
-    }
-    .social a {
+    .whatsapp-button, .game-button {
+      margin-top: 30px;
       display: inline-block;
-      margin: 0.5rem;
-      padding: 0.75rem 1.5rem;
       background: #25D366;
       color: white;
-      border-radius: 8px;
+      padding: 12px 18px;
+      border-radius: 6px;
+      font-weight: 600;
       text-decoration: none;
-      font-weight: bold;
+      transition: 0.3s;
     }
-    .youtube {
-      background: #FF0000;
-    }
-    footer {
-      text-align: center;
-      padding: 1rem;
-      margin-top: 2rem;
-      font-size: 0.9rem;
-      color: #ccc;
+    .whatsapp-button:hover, .game-button:hover {
+      background: #1ebe5b;
     }
   </style>
 </head>
-<body>
-  <header>
-    <h1>Gems Fantasy</h1>
-    <nav>
+<body>  <header>
+    <div class="nav">
       <a href="#">Home</a>
       <a href="#">Wingo</a>
       <a href="#">Results</a>
       <a href="#">Contact</a>
-    </nav>
-  </header>  <div class="container">
-    <h2>خوش آمدید - اپنا Wingo منتخب کریں</h2>
-    <div class="buttons">
-      <button>30 سیکنڈ</button>
-      <button>1 منٹ</button>
-      <button>3 منٹ</button>
-      <button>5 منٹ</button>
-    </div><div class="result-section">
-  <h3>نتیجہ چیک کریں</h3>
-  <input type="text" placeholder="123" id="userInput" />
-  <button onclick="showResult()">Show Result</button>
-  <p id="resultOutput"></p>
-</div>
+    </div>
+  </header>  <h1 class="title">Welcome - Choose Your Wingo</h1>  <div class="btn-group">
+    <button onclick="selectWingo('30s')">30 Seconds</button>
+    <button onclick="selectWingo('1m')">1 Minute</button>
+    <button onclick="selectWingo('3m')">3 Minutes</button>
+    <button onclick="selectWingo('5m')">5 Minutes</button>
+  </div>  <div class="result-box">
+    <h2>Check Result</h2>
+    <input type="text" id="codeInput" placeholder="123">
+    <button onclick="showResult()">Show Result</button>
+    <p id="resultOutput"></p>
+  </div><a class="game-button" href="https://www.92lotto.bet/#/register?invitationCode=62234836484" target="_blank">🎮 Play Jeeto Game</a> <br> <a class="whatsapp-button" href="https://whatsapp.com/channel/0029VbB00RE5fM5SO0umup1H" target="_blank">📱 Join WhatsApp Channel</a>
 
-<div class="alert">
-  📢 نوٹ: نیچے دیے گئے آفیشل لنک سے ہی گیم ڈاؤن لوڈ کریں، ورنہ یہ ہیک کام نہیں کرے گا۔ کم از کم 500 روپے ڈپازٹ لازمی ہے۔
-</div>
+  <script>
+    function selectWingo(timeframe) {
+      alert('Wingo selected: ' + timeframe);
+    }
 
-<div class="social">
-  <a href="#" class="youtube">📺 یوٹیوب چینل</a>
-  <a href="#">📱 واٹس ایپ چینل</a>
-  <a href="#" style="background:#f39c12">⬇️ گیم ڈاؤن لوڈ کریں</a>
-</div>
-
-  </div>  <footer>
-    © 2025 Gems Fantasy | تمام حقوق محفوظ ہیں
-  </footer>  <script>
     function showResult() {
-      const input = document.getElementById('userInput').value;
-      const output = document.getElementById('resultOutput');
+      let input = document.getElementById("codeInput").value;
+      let result = '';
       if (input === "123") {
-        output.innerText = '✅ Result: Small Green';
+        result = "Result: Small Green";
       } else {
-        output.innerText = '❌ Invalid Input';
+        result = "No result found for this code.";
       }
+      document.getElementById("resultOutput").innerText = result;
     }
   </script></body>
 </html>
