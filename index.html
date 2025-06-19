@@ -1,114 +1,136 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Jeeto Wingo</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Wingo Results - Jeeto Game</title>
   <style>
     body {
       margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background: #0f2027;
-      background: linear-gradient(to right, #2c5364, #203a43, #0f2027);
-      color: #fff;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      color: white;
       text-align: center;
-      padding: 20px;
     }
     header {
       background: #000;
-      padding: 15px 0;
-      font-size: 20px;
-      color: #fff;
+      padding: 10px 0;
     }
-    .nav {
-      display: flex;
-      justify-content: center;
-      gap: 30px;
-      font-weight: 600;
-    }
-    .nav a {
-      color: #fff;
+    nav a {
+      color: white;
       text-decoration: none;
+      margin: 0 15px;
+      font-weight: bold;
     }
-    .title {
+    .main {
+      padding: 30px 20px;
+    }
+    .main h2 {
+      margin-bottom: 10px;
       font-size: 24px;
-      margin: 30px 0 10px;
     }
-    .btn-group button {
-      background-color: #007bff;
-      color: white;
-      border: none;
-      padding: 12px 20px;
+    .buttons button {
       margin: 10px;
-      font-size: 16px;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-    .btn-group button:hover {
-      background-color: #0056b3;
-    }
-    input[type="text"] {
-      padding: 10px;
-      font-size: 16px;
-      margin-top: 15px;
-      border-radius: 6px;
+      padding: 12px 20px;
       border: none;
-      width: 120px;
-      text-align: center;
-    }
-    .result-box {
-      margin-top: 20px;
-    }
-    .whatsapp-button, .game-button {
-      margin-top: 30px;
-      display: inline-block;
-      background: #25D366;
+      border-radius: 8px;
+      background-color: #1e90ff;
       color: white;
-      padding: 12px 18px;
-      border-radius: 6px;
-      font-weight: 600;
-      text-decoration: none;
-      transition: 0.3s;
+      font-size: 16px;
+      cursor: pointer;
     }
-    .whatsapp-button:hover, .game-button:hover {
-      background: #1ebe5b;
+    .result-check {
+      margin-top: 30px;
+    }
+    .result-check input {
+      padding: 10px;
+      width: 150px;
+      margin-right: 10px;
+      border-radius: 5px;
+      border: none;
+      font-size: 16px;
+    }
+    .result-check button {
+      padding: 10px 20px;
+      background: #28a745;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .message {
+      margin-top: 15px;
+      font-size: 18px;
+      color: #ffcc00;
+    }
+    .links {
+      margin-top: 40px;
+    }
+    .links a {
+      display: block;
+      margin: 10px auto;
+      padding: 15px;
+      background: #00c851;
+      color: white;
+      width: 250px;
+      border-radius: 10px;
+      font-weight: bold;
+      text-decoration: none;
     }
   </style>
 </head>
-<body>  <header>
-    <div class="nav">
-      <a href="#">Home</a>
-      <a href="#">Wingo</a>
-      <a href="#">Results</a>
-      <a href="#">Contact</a>
-    </div>
-  </header>  <h1 class="title">Welcome - Choose Your Wingo</h1>  <div class="btn-group">
-    <button onclick="selectWingo('30s')">30 Seconds</button>
-    <button onclick="selectWingo('1m')">1 Minute</button>
-    <button onclick="selectWingo('3m')">3 Minutes</button>
-    <button onclick="selectWingo('5m')">5 Minutes</button>
-  </div>  <div class="result-box">
-    <h2>Check Result</h2>
-    <input type="text" id="codeInput" placeholder="123">
-    <button onclick="showResult()">Show Result</button>
-    <p id="resultOutput"></p>
-  </div><a class="game-button" href="https://www.92lotto.bet/#/register?invitationCode=62234836484" target="_blank">🎮 Play Jeeto Game</a> <br> <a class="whatsapp-button" href="https://whatsapp.com/channel/0029VbB00RE5fM5SO0umup1H" target="_blank">📱 Join WhatsApp Channel</a>
+<body>
 
-  <script>
-    function selectWingo(timeframe) {
-      alert('Wingo selected: ' + timeframe);
-    }
+<header>
+  <nav>
+    <a href="#">Home</a>
+    <a href="#">Wingo</a>
+    <a href="#">Results</a>
+    <a href="#">Contact</a>
+  </nav>
+</header>
 
-    function showResult() {
-      let input = document.getElementById("codeInput").value;
-      let result = '';
-      if (input === "123") {
-        result = "Result: Small Green";
-      } else {
-        result = "No result found for this code.";
-      }
-      document.getElementById("resultOutput").innerText = result;
+<div class="main">
+  <h2>Welcome - Choose Your Wingo</h2>
+
+  <div class="buttons">
+    <button>30 Seconds</button>
+    <button>1 Minute</button>
+    <button>3 Minutes</button>
+    <button>5 Minutes</button>
+  </div>
+
+  <div class="result-check">
+    <h3>Check Result</h3>
+    <input type="number" id="codeInput" placeholder="Enter Code">
+    <button onclick="checkResult()">Show Result</button>
+    <div id="resultMessage" class="message"></div>
+  </div>
+
+  <div class="links">
+    <a href="https://www.92lotto.bet/#/register?invitationCode=62234836484" target="_blank">🎮 Play Jeeto Game</a>
+    <a href="https://whatsapp.com/channel/0029VbB00RE5fM5SO0umup1H" target="_blank">📱 Join WhatsApp Channel</a>
+  </div>
+</div>
+
+<script>
+  function checkResult() {
+    const input = document.getElementById("codeInput").value;
+    const resultBox = document.getElementById("resultMessage");
+
+    // Dummy logic (replace with real database or array)
+    const validCodes = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+
+    if (validCodes.includes(input)) {
+      resultBox.textContent = `✅ Result for code ${input}: WIN`;
+      resultBox.style.color = '#00ff99';
+    } else {
+      resultBox.textContent = `❌ No result found for this code.`;
+      resultBox.style.color = '#ffcc00';
     }
-  </script></body>
+  }
+</script>
+
+</body>
 </html>
