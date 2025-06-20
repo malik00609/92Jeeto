@@ -1,136 +1,148 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Wingo Results - Jeeto Game</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wingo Adventure</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
-      font-family: 'Segoe UI', sans-serif;
+      font-family: 'Poppins', sans-serif;
       background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
       color: white;
       text-align: center;
     }
-    header {
-      background: #000;
+    nav {
+      background: black;
       padding: 10px 0;
+      font-weight: 600;
     }
     nav a {
       color: white;
       text-decoration: none;
       margin: 0 15px;
-      font-weight: bold;
+      font-size: 18px;
     }
-    .main {
-      padding: 30px 20px;
+    .container {
+      padding: 30px;
     }
-    .main h2 {
-      margin-bottom: 10px;
-      font-size: 24px;
-    }
-    .buttons button {
-      margin: 10px;
+    .btn-group button {
+      background-color: #007bff;
+      border: none;
+      color: white;
       padding: 12px 20px;
+      margin: 10px;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .btn-group button:hover {
+      background-color: #0056b3;
+    }
+    input[type="text"] {
+      padding: 12px;
       border: none;
       border-radius: 8px;
-      background-color: #1e90ff;
-      color: white;
-      font-size: 16px;
-      cursor: pointer;
-    }
-    .result-check {
-      margin-top: 30px;
-    }
-    .result-check input {
-      padding: 10px;
       width: 150px;
-      margin-right: 10px;
-      border-radius: 5px;
-      border: none;
-      font-size: 16px;
+      margin-top: 20px;
     }
-    .result-check button {
-      padding: 10px 20px;
-      background: #28a745;
-      color: white;
+    .green-btn {
+      background-color: #28a745;
       border: none;
-      border-radius: 5px;
+      color: white;
+      padding: 12px 20px;
+      border-radius: 8px;
       font-size: 16px;
+      margin-left: 10px;
       cursor: pointer;
     }
-    .message {
-      margin-top: 15px;
-      font-size: 18px;
-      color: #ffcc00;
-    }
-    .links {
-      margin-top: 40px;
-    }
-    .links a {
-      display: block;
-      margin: 10px auto;
-      padding: 15px;
-      background: #00c851;
-      color: white;
-      width: 250px;
-      border-radius: 10px;
+    .result-box {
+      margin-top: 20px;
+      font-size: 20px;
       font-weight: bold;
+      display: none;
+    }
+    .notice {
+      background-color: yellow;
+      color: black;
+      padding: 10px;
+      font-weight: 600;
+      margin-top: 30px;
+      border-radius: 10px;
+    }
+    .action-links a {
+      display: block;
+      background-color: #00c853;
+      color: white;
+      padding: 15px;
+      margin: 20px auto;
+      width: 250px;
       text-decoration: none;
+      border-radius: 10px;
+      font-size: 16px;
     }
   </style>
 </head>
 <body>
-
-<header>
   <nav>
     <a href="#">Home</a>
     <a href="#">Wingo</a>
     <a href="#">Results</a>
     <a href="#">Contact</a>
-  </nav>
-</header>
+  </nav>  <div class="container">
+    <h2>Welcome - Choose Your Wingo</h2>
+    <div class="btn-group">
+      <button onclick="selectDuration('30')">30 Seconds</button>
+      <button onclick="selectDuration('60')">1 Minute</button>
+      <button onclick="selectDuration('180')">3 Minutes</button>
+      <button onclick="selectDuration('300')">5 Minutes</button>
+    </div><h3>Check Result</h3>
+<input type="text" id="codeInput" placeholder="Enter Code" maxlength="3" />
+<button class="green-btn" onclick="showResult()">Show Result</button>
 
-<div class="main">
-  <h2>Welcome - Choose Your Wingo</h2>
-
-  <div class="buttons">
-    <button>30 Seconds</button>
-    <button>1 Minute</button>
-    <button>3 Minutes</button>
-    <button>5 Minutes</button>
-  </div>
-
-  <div class="result-check">
-    <h3>Check Result</h3>
-    <input type="number" id="codeInput" placeholder="Enter Code">
-    <button onclick="checkResult()">Show Result</button>
-    <div id="resultMessage" class="message"></div>
-  </div>
-
-  <div class="links">
-    <a href="https://www.92lotto.bet/#/register?invitationCode=62234836484" target="_blank">🎮 Play Jeeto Game</a>
-    <a href="https://whatsapp.com/channel/0029VbB00RE5fM5SO0umup1H" target="_blank">📱 Join WhatsApp Channel</a>
-  </div>
+<div class="result-box" id="resultBox">
+  ✅ Result: <span id="resultText"></span>
 </div>
 
-<script>
-  function checkResult() {
-    const input = document.getElementById("codeInput").value;
-    const resultBox = document.getElementById("resultMessage");
+<div class="action-links">
+  <a href="https://www.92lotto.club/#/register?invitationCode=62234836484" target="_blank">🎮 Play Jeeto Game</a>
+  <a href="https://whatsapp.com/channel/0029VbB00RE5fM5SO0umup1H" target="_blank">📲 Join WhatsApp Channel</a>
+</div>
 
-    // Dummy logic (replace with real database or array)
-    const validCodes = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+<div class="notice">
+  جن لوگوں کو ہنڈرڈ پرسنڈ وننگ سگنل چاہیئے تو وہ ووٹس اپ پر کانٹیک کرسکتے ہیں ہمارے ساتھ اور جن لوگوں کو اس طرح کا اپنے خود کی ویب سائٹ بنا لیو وہ بھی رابطہ کرسکتے ہیں
+</div>
 
-    if (validCodes.includes(input)) {
-      resultBox.textContent = `✅ Result for code ${input}: WIN`;
-      resultBox.style.color = '#00ff99';
-    } else {
-      resultBox.textContent = `❌ No result found for this code.`;
-      resultBox.style.color = '#ffcc00';
+  </div>  <script>
+    let selectedDuration = null;
+    let resultFlip = true;
+
+    function selectDuration(duration) {
+      selectedDuration = duration;
+      alert(`Selected: ${duration} seconds`);
     }
-  }
-</script>
 
-</body>
+    function showResult() {
+      const code = document.getElementById('codeInput').value;
+      const resultBox = document.getElementById('resultBox');
+      const resultText = document.getElementById('resultText');
+
+      if (!selectedDuration) {
+        alert("Please select a duration first.");
+        return;
+      }
+
+      if (!code || code.length !== 3 || isNaN(code)) {
+        alert("Please enter a valid 3-digit code.");
+        return;
+      }
+
+      // Alternate between Big and Small for visual effect
+      const result = resultFlip ? "BIG" : "SMALL";
+      resultText.textContent = `${code} = ${result}`;
+      resultBox.style.display = 'block';
+      resultFlip = !resultFlip;
+    }
+  </script></body>
 </html>
