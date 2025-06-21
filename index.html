@@ -23,24 +23,24 @@
       margin: 0 15px;
       font-weight: bold;
     }
-    /* Midnight OFF-TIME circle */
-    .off-time-circle {
-      width: 120px;
-      height: 120px;
-      background: red;
+    h1 {
+      margin: 30px 0 10px;
+    }
+    .off-circle {
+      width: 200px;
+      height: 200px;
+      background-color: red;
       color: white;
+      font-weight: bold;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-weight: bold;
-      margin: 20px auto;
-      font-size: 16px;
-      box-shadow: 0 0 10px #ff0000;
-      line-height: 1.2;
-    }
-    h1 {
-      margin: 10px 0;
+      margin: 40px auto 20px;
+      font-size: 22px;
+      box-shadow: 0 0 25px red;
+      line-height: 1.5;
+      flex-direction: column;
     }
     .timer-buttons button {
       background: dodgerblue;
@@ -58,7 +58,7 @@
     .input-section {
       margin-top: 20px;
     }
-    input[type="text"] {
+    input[type="text"], input[type="password"] {
       padding: 10px;
       border-radius: 5px;
       border: none;
@@ -93,9 +93,26 @@
       color: white;
       font-weight: bold;
     }
+    .pin-input {
+      margin-top: 10px;
+    }
+    .pin-input input {
+      text-align: center;
+      font-size: 18px;
+    }
+    .pin-input button {
+      margin-top: 10px;
+      background: #333;
+      padding: 8px 16px;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
+
   <nav>
     <a href="#">Home</a>
     <a href="#">Color Trading</a>
@@ -103,32 +120,45 @@
     <a href="#">Contact</a>
   </nav>
 
-  <!-- Midnight OFF-TIME indicator -->
-  <div class="off-time-circle">12 AM<br>OFF TIME</div>
-
-  <h1>Color Trading</h1>
-
-  <div class="timer-buttons">
-    <button onclick="selectTime(this)">30 Seconds</button>
-    <button onclick="selectTime(this)">1 Minute</button>
-    <button onclick="selectTime(this)">3 Minutes</button>
-    <button onclick="selectTime(this)">5 Minutes</button>
+  <!-- OFF TIME Message -->
+  <div id="offTimeMessage" style="display:none;">
+    <div class="off-circle">
+      12 AM<br>OFF TIME
+    </div>
+    <div class="pin-input">
+      <input type="password" id="pinInput" placeholder="Enter PIN" maxlength="10" />
+      <br />
+      <button onclick="unlockSystem()">Unlock</button>
+    </div>
   </div>
 
-  <div class="input-section">
-    <input type="text" id="codeInput" placeholder="Enter Code" />
-    <button class="result-button" onclick="showResult()">Show Result</button>
-  </div>
+  <!-- Main App Content -->
+  <div id="mainContent">
+    <h1>Color Trading</h1>
 
-  <div class="result-text" id="resultDisplay"></div>
+    <div class="timer-buttons">
+      <button onclick="selectTime(this)">30 Seconds</button>
+      <button onclick="selectTime(this)">1 Minute</button>
+      <button onclick="selectTime(this)">3 Minutes</button>
+      <button onclick="selectTime(this)">5 Minutes</button>
+    </div>
 
-  <div class="links">
-    <a href="https://www.92lotto.club/#/register?invitationCode=62234836484" target="_blank">🎮 Play Jeeto Game</a>
-    <a href="https://whatsapp.com/channel/0029VbB00RE5fM5SO0umup1H" target="_blank">📲 Join WhatsApp Channel</a>
+    <div class="input-section">
+      <input type="text" id="codeInput" placeholder="Enter Code" />
+      <button class="result-button" onclick="showResult()">Show Result</button>
+    </div>
+
+    <div class="result-text" id="resultDisplay"></div>
+
+    <div class="links">
+      <a href="https://www.92lotto.club/#/register?invitationCode=62234836484" target="_blank">🎮 Play Jeeto Game</a>
+      <a href="https://whatsapp.com/channel/0029VbB00RE5fM5SO0umup1H" target="_blank">📲 Join WhatsApp Channel</a>
+    </div>
   </div>
 
   <script>
     let currentSelection = null;
+    let isManuallyUnlocked = false;
     const fixedPattern = [
       "BIG", "BIG", "BIG", "SMALL", "BIG", "SMALL", "SMALL",
       "BIG", "SMALL", "BIG", "SMALL", "BIG", "BIG", "BIG",
@@ -138,20 +168,14 @@
     let patternIndex = 0;
 
     function selectTime(btn) {
+      if (isOffTime()) return;
       document.querySelectorAll('.timer-buttons button').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       currentSelection = btn.textContent;
     }
 
     function showResult() {
-      const now = new Date();
-      const hours = now.getHours();   // 0 = midnight, 23 = 11 PM
-
-      // Block results during the midnight hour (00:00 – 00:59)
-      if (hours === 0) {
-        alert("⚠️ Result is OFF after 12 AM (midnight).");
-        return;
-      }
+      if (isOffTime()) return;
 
       if (!currentSelection) {
         alert("Please select a time first.");
@@ -162,6 +186,39 @@
       document.getElementById("resultDisplay").textContent = `✅ Result: ${result}`;
       patternIndex = (patternIndex + 1) % fixedPattern.length;
     }
+
+    function isOffTime() {
+      const now = new Date();
+      const hour = now.getHours();
+      return hour === 0 && !isManuallyUnlocked;
+    }
+
+    function unlockSystem() {
+      const pin = document.getElementById("pinInput").value;
+      if (pin === "1470") {
+        isManuallyUnlocked = true;
+        document.getElementById("offTimeMessage").style.display = "none";
+        document.getElementById("mainContent").style.display = "block";
+      } else {
+        alert("❌ Wrong PIN");
+      }
+    }
+
+    function checkMidnightOff() {
+      if (isOffTime()) {
+        document.getElementById("mainContent").style.display = "none";
+        document.getElementById("offTimeMessage").style.display = "block";
+      } else if (!isOffTime() || isManuallyUnlocked) {
+        document.getElementById("mainContent").style.display = "block";
+        document.getElementById("offTimeMessage").style.display = "none";
+      }
+    }
+
+    // Check on load
+    checkMidnightOff();
+
+    // Re-check every minute
+    setInterval(checkMidnightOff, 60000);
   </script>
 </body>
 </html>
