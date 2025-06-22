@@ -1,1 +1,166 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Color Trading</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+    nav {
+      background: black;
+      padding: 10px 0;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin: 0 15px;
+      font-weight: bold;
+    }
+    .circle {
+      width: 100px;
+      height: 100px;
+      background-color: #00c851;
+      border-radius: 50%;
+      margin: 30px auto 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      font-weight: bold;
+      color: black;
+    }
+    input[type="text"] {
+      padding: 10px;
+      border-radius: 5px;
+      border: none;
+      width: 150px;
+      margin-top: 10px;
+    }
+    .btn {
+      margin-top: 10px;
+      padding: 10px 20px;
+      background: dodgerblue;
+      border: none;
+      border-radius: 5px;
+      color: white;
+      cursor: pointer;
+    }
+    .result-button {
+      background: green;
+      margin-left: 10px;
+    }
+    .result-text {
+      margin-top: 30px;
+      font-size: 24px;
+      font-weight: bold;
+      color: #00ff7f;
+    }
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="#">Home</a>
+    <a href="#">Color Trading</a>
+    <a href="#">Results</a>
+    <a href="#">Contact</a>
+  </nav>
+
+  <!-- Before 6:40 PM message -->
+  <div id="before640">
+    <h2>⏳ Please wait until 6:40 PM...</h2>
+  </div>
+
+  <!-- After 6:40: Circle + PIN -->
+  <div id="after640" class="hidden">
+    <div class="circle">6:40</div>
+    <input type="text" id="pinInput" placeholder="Enter PIN" />
+    <br>
+    <button class="btn" onclick="validatePin()">Submit</button>
+  </div>
+
+  <!-- Main content shown only after correct PIN -->
+  <div id="mainSection" class="hidden">
+    <h1>Color Trading</h1>
+
+    <div class="timer-buttons">
+      <button onclick="selectTime(this)">30 Seconds</button>
+      <button onclick="selectTime(this)">1 Minute</button>
+      <button onclick="selectTime(this)">3 Minutes</button>
+      <button onclick="selectTime(this)">5 Minutes</button>
+    </div>
+
+    <div class="input-section">
+      <input type="text" id="codeInput" placeholder="Enter Code" />
+      <button class="btn result-button" onclick="showResult()">Show Result</button>
+    </div>
+
+    <div class="result-text" id="resultDisplay"></div>
+  </div>
+
+  <script>
+    const correctPIN = "1740";
+    let currentSelection = null;
+    const fixedPattern = [
+      "BIG", "BIG", "BIG", "SMALL", "BIG", "SMALL", "SMALL",
+      "BIG", "SMALL", "BIG", "SMALL", "BIG", "BIG", "BIG",
+      "BIG", "SMALL", "BIG", "SMALL", "BIG", "SMALL", "BIG",
+      "SMALL", "BIG", "SMALL", "SMALL"
+    ];
+    let patternIndex = 0;
+
+    function updateDisplay() {
+      const now = new Date();
+      const hours = now.getHours();
+      const minutes = now.getMinutes();
+
+      if (hours > 18 || (hours === 18 && minutes >= 40)) {
+        document.getElementById("after640").classList.remove("hidden");
+        document.getElementById("before640").classList.add("hidden");
+      } else {
+        document.getElementById("after640").classList.add("hidden");
+        document.getElementById("before640").classList.remove("hidden");
+      }
+    }
+
+    function validatePin() {
+      const userPin = document.getElementById("pinInput").value.trim();
+      if (userPin === correctPIN) {
+        document.getElementById("mainSection").classList.remove("hidden");
+      } else {
+        alert("Incorrect PIN.");
+      }
+    }
+
+    function selectTime(btn) {
+      document.querySelectorAll('.timer-buttons button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentSelection = btn.textContent;
+    }
+
+    function showResult() {
+      if (!currentSelection) {
+        alert("Please select a time first.");
+        return;
+      }
+      const result = fixedPattern[patternIndex];
+      document.getElementById("resultDisplay").textContent = `✅ Result: ${result}`;
+      patternIndex = (patternIndex + 1) % fixedPattern.length;
+    }
+
+    // Initial time check + refresh every 30 sec
+    updateDisplay();
+    setInterval(updateDisplay, 30000);
+  </script>
+</body>
+</html>
