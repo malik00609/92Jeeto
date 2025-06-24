@@ -1,166 +1,106 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Color Trading</title>
+  <title>FANTASY+ Official</title>
   <style>
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #141e30, #243b55);
       color: white;
       text-align: center;
+    }
+
+    header {
+      background-color: #0d1117;
       padding: 20px;
+      box-shadow: 0 0 10px #00ff9d;
     }
-    nav {
-      background: black;
-      padding: 10px 0;
+
+    header h1 {
+      margin: 0;
+      font-size: 28px;
+      color: #00ff9d;
     }
-    nav a {
-      color: white;
-      text-decoration: none;
-      margin: 0 15px;
-      font-weight: bold;
+
+    .container {
+      padding: 40px 20px;
     }
-    .circle {
-      width: 100px;
-      height: 100px;
-      background-color: #00c851;
-      border-radius: 50%;
-      margin: 30px auto 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 24px;
-      font-weight: bold;
-      color: black;
+
+    .box {
+      background: #1f2b3a;
+      border-radius: 15px;
+      padding: 30px;
+      max-width: 500px;
+      margin: 20px auto;
+      box-shadow: 0 0 20px rgba(0, 255, 157, 0.3);
     }
-    input[type="text"] {
-      padding: 10px;
-      border-radius: 5px;
-      border: none;
-      width: 150px;
-      margin-top: 10px;
+
+    .box h2 {
+      margin-bottom: 15px;
+      color: #00ffd5;
     }
+
+    .box p {
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
     .btn {
-      margin-top: 10px;
-      padding: 10px 20px;
-      background: dodgerblue;
-      border: none;
-      border-radius: 5px;
+      background-color: #00c851;
       color: white;
-      cursor: pointer;
-    }
-    .result-button {
-      background: green;
-      margin-left: 10px;
-    }
-    .result-text {
-      margin-top: 30px;
-      font-size: 24px;
+      padding: 12px 24px;
+      text-decoration: none;
+      border-radius: 8px;
+      display: inline-block;
+      margin-top: 20px;
       font-weight: bold;
-      color: #00ff7f;
+      transition: background 0.3s ease;
     }
-    .hidden {
-      display: none;
+
+    .btn:hover {
+      background-color: #00a744;
+    }
+
+    footer {
+      background-color: #0d1117;
+      padding: 15px;
+      font-size: 14px;
+      color: #ccc;
+      margin-top: 50px;
     }
   </style>
 </head>
 <body>
-  <nav>
-    <a href="#">Home</a>
-    <a href="#">Color Trading</a>
-    <a href="#">Results</a>
-    <a href="#">Contact</a>
-  </nav>
 
-  <!-- Before 6:40 PM message -->
-  <div id="before640">
-    <h2>⏳ Please wait until 6:40 PM...</h2>
-  </div>
+  <header>
+    <h1>🌟 Welcome to FANTASY+</h1>
+  </header>
 
-  <!-- After 6:40: Circle + PIN -->
-  <div id="after640" class="hidden">
-    <div class="circle">6:40</div>
-    <input type="text" id="pinInput" placeholder="Enter PIN" />
-    <br>
-    <button class="btn" onclick="validatePin()">Submit</button>
-  </div>
-
-  <!-- Main content shown only after correct PIN -->
-  <div id="mainSection" class="hidden">
-    <h1>Color Trading</h1>
-
-    <div class="timer-buttons">
-      <button onclick="selectTime(this)">30 Seconds</button>
-      <button onclick="selectTime(this)">1 Minute</button>
-      <button onclick="selectTime(this)">3 Minutes</button>
-      <button onclick="selectTime(this)">5 Minutes</button>
+  <div class="container">
+    <div class="box">
+      <h2>What is Fantasy+?</h2>
+      <p>
+        Fantasy+ is Pakistan's top trending color trading platform where you can predict results like <strong>Red/Green</strong> and <strong>Big/Small</strong> to win real cash! It's fast, secure, and super easy to use.
+      </p>
+      <a href="https://www.fantasygems10.com/#/register?invitationCode=22386407377" class="btn" target="_blank">🎮 Start Trading Now</a>
     </div>
 
-    <div class="input-section">
-      <input type="text" id="codeInput" placeholder="Enter Code" />
-      <button class="btn result-button" onclick="showResult()">Show Result</button>
+    <div class="box">
+      <h2>Join Our WhatsApp Channel</h2>
+      <p>
+        Stay updated with latest results, trends, and announcements by joining our official WhatsApp channel.
+      </p>
+      <a href="https://whatsapp.com/channel/0029VbB00RE5fM5SO0umup1H" class="btn" target="_blank">📲 Join Now</a>
     </div>
-
-    <div class="result-text" id="resultDisplay"></div>
   </div>
 
-  <script>
-    const correctPIN = "1740";
-    let currentSelection = null;
-    const fixedPattern = [
-      "BIG", "BIG", "BIG", "SMALL", "BIG", "SMALL", "SMALL",
-      "BIG", "SMALL", "BIG", "SMALL", "BIG", "BIG", "BIG",
-      "BIG", "SMALL", "BIG", "SMALL", "BIG", "SMALL", "BIG",
-      "SMALL", "BIG", "SMALL", "SMALL"
-    ];
-    let patternIndex = 0;
+  <footer>
+    &copy; 2025 Fantasy+ • All rights reserved. • Support: @Likeme1215d (Telegram)
+  </footer>
 
-    function updateDisplay() {
-      const now = new Date();
-      const hours = now.getHours();
-      const minutes = now.getMinutes();
-
-      if (hours > 18 || (hours === 18 && minutes >= 40)) {
-        document.getElementById("after640").classList.remove("hidden");
-        document.getElementById("before640").classList.add("hidden");
-      } else {
-        document.getElementById("after640").classList.add("hidden");
-        document.getElementById("before640").classList.remove("hidden");
-      }
-    }
-
-    function validatePin() {
-      const userPin = document.getElementById("pinInput").value.trim();
-      if (userPin === correctPIN) {
-        document.getElementById("mainSection").classList.remove("hidden");
-      } else {
-        alert("Incorrect PIN.");
-      }
-    }
-
-    function selectTime(btn) {
-      document.querySelectorAll('.timer-buttons button').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      currentSelection = btn.textContent;
-    }
-
-    function showResult() {
-      if (!currentSelection) {
-        alert("Please select a time first.");
-        return;
-      }
-      const result = fixedPattern[patternIndex];
-      document.getElementById("resultDisplay").textContent = `✅ Result: ${result}`;
-      patternIndex = (patternIndex + 1) % fixedPattern.length;
-    }
-
-    // Initial time check + refresh every 30 sec
-    updateDisplay();
-    setInterval(updateDisplay, 30000);
-  </script>
 </body>
 </html>
